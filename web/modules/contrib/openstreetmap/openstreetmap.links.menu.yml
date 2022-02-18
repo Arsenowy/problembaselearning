@@ -1,0 +1,33 @@
+osm.settings:
+  title: OSM Settings
+  description: Configure OSM
+  route_name:  osm.settings
+  parent: system.admin_config
+
+osm.import:
+  title: Import OSM Nodes
+  route_name: osm.import
+  parent: system.admin_content
+  weight: 999
+
+# OSM Node menu items definition
+entity.osm_node.collection:
+  title: 'OSM Node list'
+  route_name: entity.osm_node.collection
+  description: 'List OSM Node entities'
+  parent: system.admin_content
+  weight: 100
+
+entity.osm_node.add:
+  title: 'Add OSM Node'
+  route_name: entity.osm_node.add_page
+  parent: entity.osm_node.collection
+
+
+# OSM Node type menu items definition
+entity.osm_node_type.collection:
+  title: 'OSM Node type'
+  route_name: entity.osm_node_type.collection
+  description: 'List OSM Node type (bundles)'
+  parent: system.admin_structure
+  weight: 99

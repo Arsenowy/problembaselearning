@@ -1,0 +1,5 @@
+osm_query.add_form:
+  route_name: entity.osm_query.add_form
+  title: 'Add overpass query'
+  appears_on:
+    - entity.osm_query.collection

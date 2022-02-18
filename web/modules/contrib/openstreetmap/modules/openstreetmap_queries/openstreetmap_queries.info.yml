@@ -1,0 +1,12 @@
+name: OpenStreetMap Query Tools
+description: Allows saving and processing of Overpass queries to sync OSM nodes
+core_version_requirement: ^8.7.7 || ^9
+# version: 8.x-1.0
+type: module
+dependencies:
+  - openstreetmap
+
+# Information added by Drupal.org packaging script on 2021-08-10
+version: '1.0.0-beta7'
+project: 'openstreetmap'
+datestamp: 1628637130

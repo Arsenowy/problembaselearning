@@ -1,0 +1,92 @@
+<?php
+
+/**
+ * @file
+ * Contains openstreetmap.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function openstreetmap_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the openstreetmap module.
+    case 'help.page.openstreetmap':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function openstreetmap_theme() {
+  $theme = [];
+  $theme['osm_node'] = [
+    'render element' => 'elements',
+    'file' => 'osm_node.page.inc',
+    'template' => 'osm_node',
+  ];
+  $theme['osm_node_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => ['content' => NULL],
+    'file' => 'osm_node.page.inc',
+  ];
+  return $theme;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function openstreetmap_theme_suggestions_osm_node(array $variables) {
+  $suggestions = [];
+  $entity = $variables['elements']['#osm_node'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'osm_node__' . $sanitized_view_mode;
+  $suggestions[] = 'osm_node__' . $entity->bundle();
+  $suggestions[] = 'osm_node__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'osm_node__' . $entity->id();
+  $suggestions[] = 'osm_node__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}
+
+/**
+ * Implements hook_osm_node_presave_alter().
+ */
+function openstreetmap_osm_node_presave_alter(OSMNode $node, $data) {
+  // If there's an address field, some of that needs renaming.
+  $has_address_field = array_reduce($node->getFields(), function ($has, FieldItemListInterface $field) {
+    return $field->getFieldDefinition()->getType() === 'address' ? $field->getName() : $has;
+  }, NULL);
+  $address_tags = array_filter((array) $data->tags, function ($key) {
+    return strpos($key, 'addr') === 0;
+  }, ARRAY_FILTER_USE_KEY);
+  if ($has_address_field && count($address_tags) > 0) {
+    $map_drupal_as_osm = [
+      'locality' => function ($tags) {
+        return isset($tags['addr:city']) ? $tags['addr:city'] : NULL;
+      },
+      'country_code' => function ($tags) {
+        return isset($tags['addr:country']) ? $tags['addr:country'] : NULL;
+      },
+      'address_line1' => function ($tags) {
+        return (isset($tags['addr:housenumber']) ? $tags['addr:housenumber'] : '') . ' ' . (isset($tags['addr:street']) ? $tags['addr:street'] : '');
+      },
+      'postal_code' => function ($tags) {
+        return isset($tags['addr:postcode']) ? $tags['addr:postcode'] : NULL;
+      },
+      'administrative_area' => function ($tags) {
+        return isset($tags['addr:state']) ? $tags['addr:state'] : NULL;
+      },
+    ];
+    foreach ($map_drupal_as_osm as $field => $func) {
+      $node->{$has_address_field}->{$field} = $func($address_tags);
+    }
+  }
+}

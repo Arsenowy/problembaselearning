@@ -1,0 +1,13 @@
+administer openstreetmap queries:
+  title: 'Administer overpass query settings'
+  restrict access: true
+access openstreetmap queries overview:
+  title: 'Access overpass query overview page'
+delete openstreetmap queries:
+  title: Delete overpass queries
+create openstreetmap queries:
+  title: Create overpass queries
+view openstreetmap queries:
+  title: View overpass queries
+edit openstreetmap queries:
+  title: Edit overpass queries

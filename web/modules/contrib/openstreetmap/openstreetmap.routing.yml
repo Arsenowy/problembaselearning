@@ -1,0 +1,34 @@
+osm.settings:
+  path: 'admin/config/osm'
+  defaults:
+    _form: '\Drupal\openstreetmap\Form\OSMSettingsForm'
+    _title: 'OSM Settings'
+  requirements:
+    _permission: 'administer osm_node'
+
+osm.import:
+  path: 'admin/content/osm_node/import'
+  defaults:
+    _form: '\Drupal\openstreetmap\Form\OSMImportForm'
+    _title: 'Import OSM Nodes'
+  requirements:
+    _permission: 'administer osm_node'
+
+entity.osm_node.sync_all:
+  path: 'admin/content/osm_node/sync'
+  defaults:
+    _form: '\Drupal\openstreetmap\Form\OSMSyncForm'
+    _title: 'Sync OSM Nodes'
+  requirements:
+    _permission: 'edit osm_node entities'
+
+entity.osm_node.osm_data:
+  path: 'admin/content/osm_node/{osm_node}/osm_data'
+  defaults:
+    _controller: '\Drupal\openstreetmap\Controller\OSMNodeController::osmData'
+  options:
+    parameters:
+      osm_node:
+        type: entity:osm_node
+  requirements:
+    _permission: 'edit osm_node entities'

@@ -1,0 +1,15 @@
+entity.osm_query.settings:
+  path: 'admin/structure/osm_query/settings'
+  defaults:
+    _form: '\Drupal\openstreetmap_queries\Form\OSMQuerySettingsForm'
+    _title: 'Overpass Queries'
+  requirements:
+    _permission: 'administer openstreetmap queries'
+
+entity.osm_query.execute:
+  path: 'admin/structure/osm_query/{osm_query}/execute'
+  defaults:
+    _form: '\Drupal\openstreetmap_queries\Form\OSMQueryExecuteForm'
+    _title: 'Execute Query'
+  requirements:
+    _permission: 'edit openstreetmap queries'

@@ -1,0 +1,14 @@
+entity.osm_query.collection:
+  title: Overpass Queries
+  description: List of overpass queries
+  route_name: entity.osm_query.collection
+  parent: system.admin_structure
+add.entity.osm_query.collection:
+  title: Add Query
+  route_name: entity.osm_query.add_form
+  parent: entity.osm_query.collection
+entity.osm_query.settings:
+  title: Settings
+  description: Configure Overpass Queries
+  route_name:  entity.osm_query.settings
+  parent: entity.osm_query.collection

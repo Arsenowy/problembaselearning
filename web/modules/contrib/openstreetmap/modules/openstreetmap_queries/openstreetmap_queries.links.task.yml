@@ -1,0 +1,27 @@
+entity.osm_query.settings:
+  title: Settings
+  route_name: entity.osm_query.settings
+  base_route: entity.osm_query.settings
+entity.osm_query.view:
+  title: View
+  route_name: entity.osm_query.canonical
+  base_route: entity.osm_query.canonical
+entity.osm_query.edit_form:
+  title: Edit
+  route_name: entity.osm_query.edit_form
+  base_route: entity.osm_query.canonical
+entity.osm_query.delete_form:
+  title: Delete
+  route_name: entity.osm_query.delete_form
+  base_route: entity.osm_query.canonical
+  weight: 10
+entity.osm_query.collection:
+  title: Overpass Queries
+  route_name: entity.osm_query.collection
+  base_route: system.admin_structure
+  weight: 10
+entity.osm_query.execute:
+  route_name: entity.osm_query.execute
+  base_route: entity.osm_query.canonical
+  title: Execute
+  weight: 100

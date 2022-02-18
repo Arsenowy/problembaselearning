@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * Contains openstreetmap_queries.module.
+ */
+
+use Drupal\openstreetmap\Entity\OSMNodeType;
+use Drupal\openstreetmap_queries\Entity\OSMQuery;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Callback function for listing options of bundles which a query can insert.
+ */
+function openstreetmap_query_bundle_option_callback() {
+  $bundles = OSMNodeType::loadMultiple();
+  $return = [];
+  foreach ($bundles as $slug => $bundle) {
+    $return[$slug] = $bundle->label();
+  }
+  return $return;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openstreetmap_queries_form_openstreetmap_sync_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['queries'] = [
+    '#plain_text' => 'There are currently ' . count(OSMQuery::loadMultiple()) . ' queries tracking OSM data.',
+    '#suffix' => '<br />',
+    '#weight' => 50,
+  ];
+  $form['instructions']['#plain_text'] .= ' This may take quite a while, if you have many nodes or have queried large areas.';
+}
+
+/**
+ * Implements hook_openstreetmap_sync().
+ */
+function openstreetmap_queries_openstreetmap_sync() {
+  $queries = OSMQuery::loadMultiple();
+  foreach ($queries as $query) {
+    $query->execute();
+  }
+}
+
+/**
+ * Implements hook_openstreetmap_sync_batch_alter().
+ */
+function openstreetmap_queries_openstreetmap_sync_batch_alter(&$batch) {
+  // Clear this out because we added in the query running above.
+  $batch['operations'] = [];
+}

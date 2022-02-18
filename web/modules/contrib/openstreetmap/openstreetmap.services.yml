@@ -1,0 +1,4 @@
+services:
+  overpass:
+    class: Drupal\openstreetmap\Overpass
+    arguments: ['@database', '@http_client', '@config.factory']

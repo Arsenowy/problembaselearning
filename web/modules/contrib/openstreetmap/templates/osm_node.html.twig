@@ -1,0 +1,22 @@
+{#
+/**
+ * @file osm_node.html.twig
+ * Default theme implementation to present OSM Node data.
+ *
+ * This template is used when viewing OSM Node pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_osm_node()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('osm_node') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>

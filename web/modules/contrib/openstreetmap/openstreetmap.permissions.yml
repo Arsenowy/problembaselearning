@@ -1,0 +1,33 @@
+add osm_node entities:
+  title: 'Create new OSM Node entities'
+
+administer osm_node entities:
+  title: 'Administer OSM Node entities'
+  description: 'Allow to access the administration form to configure OSM Node entities.'
+  restrict access: true
+
+delete osm_node entities:
+  title: 'Delete OSM Node entities'
+
+edit osm_node entities:
+  title: 'Edit OSM Node entities'
+
+view published osm_node entities:
+  title: 'View published OSM Node entities'
+
+view unpublished osm_node entities:
+  title: 'View unpublished OSM Node entities'
+
+view all osm_node revisions:
+  title: 'View all OSM Node revisions'
+
+revert all osm_node revisions:
+  title: 'Revert all OSM Node revisions'
+  description: 'Role requires permission <em>view OSM Node revisions</em> and <em>edit rights</em> for osm_node entities in question or <em>administer osm_node entities</em>.'
+
+delete all osm_node revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view OSM Node revisions</em> and <em>delete rights</em> for osm_node entities in question or <em>administer osm_node entities</em>.'
+
+permission_callbacks:
+  - \Drupal\openstreetmap\OSMNodeTypePermissions::generatePermissions
