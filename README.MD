@@ -10,9 +10,16 @@
  - smtp
  - twig tweak
  - webform
+ - geofield
+ - leaflet
+ - open street maps
+
 
 # … and SEO modules:
  - redirect
  - metatag
  - xml sitemap
  - schema metatag
+
+# how to install
+composer install
